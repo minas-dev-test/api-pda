@@ -1,10 +1,14 @@
-package ufjf.api_ponto_apoio.p_apoio;
+package ufjf.api_ponto_apoio.classes;
 
 import java.util.UUID;
 
+import org.springframework.data.annotation.Id;
+
 public class PDA {
 
+    @Id
     private String id;
+
     private String nome;
     private String cep;
     private String endereco;
@@ -17,12 +21,6 @@ public class PDA {
 
     public PDA() {
         this.id = gerarUID();
-    }
-
-    public PDA(String nome,String endereco) {
-        this.id = gerarUID(); 
-        this.nome = nome;
-        this.endereco = endereco;
     }
 
     // gera id com 32 caracteres

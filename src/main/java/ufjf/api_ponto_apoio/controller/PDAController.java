@@ -1,6 +1,6 @@
-package ufjf.api_ponto_apoio.p_apoio;
+package ufjf.api_ponto_apoio.controller;
 
-import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -12,50 +12,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ufjf.api_ponto_apoio.repo.PDARepoControl;
+import ufjf.api_ponto_apoio.classes.PDA;
+
+
+// Mapeia a API REST
 @RestController
-@RequestMapping("/pda")
+@RequestMapping("/pontos_de_apoio")
 public class PDAController {
 
     @Autowired
-    private PDARepository repositorio;
+    private PDARepoControl repoControl;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public HashMap<String, PDA> getPDAs() {
-        return repositorio.getAllPDAs();
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<PDA> getPDAs() {
+        return repoControl.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<PDA> getById(@PathVariable String id) {
-        PDA p = repositorio.findById(id);
+        PDA p = repoControl.findById(id);
         if(p == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(p);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<PDA> addPDA(@Valid @RequestBody PDA pda) {
-        PDA novo = repositorio.insert(pda);
+        PDA novo = repoControl.insert(pda);
         return ResponseEntity.ok(novo);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<PDA> updatePDA(@PathVariable String id, @Valid @RequestBody PDA pda) {
-        PDA atual = repositorio.findById(id);
-        if(atual == null) {
-            return ResponseEntity.notFound().build();
-        }
-        atual = repositorio.update(pda, atual);
-        return ResponseEntity.ok(atual);
+        PDA atualizado = repoControl.update(pda);
+        if(atualizado == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(atualizado);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteById(@PathVariable String id) {
-        PDA p = repositorio.findById(id);
-        if(p == null) {
-            return ResponseEntity.notFound().build();
-        }
-        repositorio.delete(id);
+        repoControl.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
