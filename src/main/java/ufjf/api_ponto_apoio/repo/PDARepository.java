@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import ufjf.api_ponto_apoio.classes.PDA;
 
-// Fornece algumas queries simples
+// Fornece algumas queries simples(CRUD)
 @Repository
 public interface PDARepository extends MongoRepository<PDA,String> {
 

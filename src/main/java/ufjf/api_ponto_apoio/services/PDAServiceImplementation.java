@@ -1,22 +1,20 @@
-package ufjf.api_ponto_apoio.repo;
+package ufjf.api_ponto_apoio.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ufjf.api_ponto_apoio.classes.PDA;
+import ufjf.api_ponto_apoio.repo.PDARepository;
 
-// Encapsula o repositório em si e possibilita criação de queries mais elaboradas
-public class PDARepoControl {
+@Service ("PDAService")
+public class PDAServiceImplementation implements PDAService {
 
     @Autowired
     private PDARepository repository;
-
-    public PDARepoControl(){
-
-    }
 
     public List<PDA> getAll() {
         return repository.findAll();
@@ -34,16 +32,15 @@ public class PDARepoControl {
         return novo;
     }
 
-    public PDA update(PDA p) {
-        PDA existente = null;
+    public PDA update(String id,PDA p) {
         try {
-            existente = repository.findById(p.getId()).get();
+            PDA existente = repository.findById(id).get();
+            BeanUtils.copyProperties(p, existente, "id");
+            repository.save(existente);
+            return existente;
         } catch(NoSuchElementException e) {
             return null;
         }
-        BeanUtils.copyProperties(p, existente, "id");
-        repository.save(existente);
-        return existente;
     }
 
     public void delete(PDA p) {

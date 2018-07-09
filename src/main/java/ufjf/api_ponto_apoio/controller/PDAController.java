@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ufjf.api_ponto_apoio.repo.PDARepoControl;
+import ufjf.api_ponto_apoio.services.PDAService;
 import ufjf.api_ponto_apoio.classes.PDA;
 
 
@@ -22,16 +22,16 @@ import ufjf.api_ponto_apoio.classes.PDA;
 public class PDAController {
 
     @Autowired
-    private PDARepoControl repoControl;
+    private PDAService repoService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<PDA> getPDAs() {
-        return repoControl.getAll();
+        return repoService.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<PDA> getById(@PathVariable String id) {
-        PDA p = repoControl.findById(id);
+        PDA p = repoService.findById(id);
         if(p == null) {
             return ResponseEntity.notFound().build();
         }
@@ -40,20 +40,20 @@ public class PDAController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<PDA> addPDA(@Valid @RequestBody PDA pda) {
-        PDA novo = repoControl.insert(pda);
+        PDA novo = repoService.insert(pda);
         return ResponseEntity.ok(novo);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<PDA> updatePDA(@PathVariable String id, @Valid @RequestBody PDA pda) {
-        PDA atualizado = repoControl.update(pda);
+        PDA atualizado = repoService.update(id,pda);
         if(atualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(atualizado);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteById(@PathVariable String id) {
-        repoControl.deleteById(id);
+        repoService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
