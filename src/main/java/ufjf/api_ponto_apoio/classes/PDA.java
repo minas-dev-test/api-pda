@@ -20,6 +20,8 @@ public class PDA {
     private String cidade;
     private String estado;
     private String pnt_referencia;
+    private double latitude;
+    private double longitude;
 
     public PDA() {
         this.id = gerarUID();
@@ -44,9 +46,26 @@ public class PDA {
         "estado: " + estado + System.lineSeparator() +
         "cep: " + cep + System.lineSeparator() +
         "pnt_referencia: " + pnt_referencia + System.lineSeparator() +
+        "latitude: " + latitude + System.lineSeparator() +
+        "longitude: " + longitude + System.lineSeparator() +
         "}";
     }
     
+
+    /**
+     * @return the latitude
+     */
+    public double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public double getLongitude() {
+        return longitude;
+    }
+
     /**
      * @return the bairro
      */
@@ -88,6 +107,20 @@ public class PDA {
      */
     public String getPnt_referencia() {
         return pnt_referencia;
+    }
+
+    
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
     /**
      * @param bairro the bairro to set
