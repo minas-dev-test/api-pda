@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="pontos_de_apoio")
+@Document(collection="pontos_de_apoio") // define a 'tabela' no BD
 public class PDA {
 
     @Id
@@ -13,7 +13,7 @@ public class PDA {
 
     private String nome;
     private String cep;
-    private String endereco;
+    private String rua;
     private int numero;
     private String complemento;
     private String bairro;
@@ -22,6 +22,7 @@ public class PDA {
     private String pnt_referencia;
     private double latitude;
     private double longitude;
+    private String mapEmbedURL;
 
     public PDA() {
         this.id = gerarUID();
@@ -29,8 +30,13 @@ public class PDA {
 
     // gera id com 32 caracteres
     public String gerarUID() {
-        String id1 = UUID.randomUUID().toString().replace("-", "");
+        //String id1 = UUID.randomUUID().toString().replace("-", "");
+        String id1 = UUID.randomUUID().toString();
         return id1;
+    }
+
+    public String getEndereco() {
+        return rua + " " + numero + " " + complemento + ", " + bairro + ", " + cidade + ", " + estado;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class PDA {
         return "PDA {" +
         "id: " + id + System.lineSeparator() +
         "nome: " + nome + System.lineSeparator() +
-        "endereco: " + endereco + System.lineSeparator() +
+        "rua: " + rua + System.lineSeparator() +
         "numero: " + numero + System.lineSeparator() +
         "complemento: " + complemento + System.lineSeparator() +
         "bairro: " + bairro + System.lineSeparator() +
@@ -48,9 +54,18 @@ public class PDA {
         "pnt_referencia: " + pnt_referencia + System.lineSeparator() +
         "latitude: " + latitude + System.lineSeparator() +
         "longitude: " + longitude + System.lineSeparator() +
+        "map url: " + mapEmbedURL + System.lineSeparator() +
         "}";
     }
     
+
+    public void setMapEmbedURL(String url) {
+        mapEmbedURL = url;
+    }
+
+    public String getMapEmbedURL() {
+        return mapEmbedURL;
+    }
 
     /**
      * @return the latitude
@@ -165,10 +180,10 @@ public class PDA {
     }
 
     /**
-     * @return the endereco
+     * @return the rua
      */
-    public String getEndereco() {
-        return endereco;
+    public String getRua() {
+        return rua;
     }
 
     /**
@@ -184,10 +199,10 @@ public class PDA {
         return nome;
     }
     /**
-     * @param endereco the endereco to set
+     * @param rua the rua to set
      */
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
 
