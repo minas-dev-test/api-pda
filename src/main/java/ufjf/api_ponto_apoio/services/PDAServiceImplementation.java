@@ -20,16 +20,17 @@ public class PDAServiceImplementation implements PDAService {
         return repository.findAll();
     }
 
+    
+    @Override
+    public List<PDA> findByCEP(String cep) {
+        return repository.findByCep(cep);
+    }
 
     @Override
     public List<PDA> findByNome(String nome) {
         return repository.findByNomeLike(nome);
     }
 
-    @Override
-    public List<PDA> findByCEP(String cep) {
-        return repository.findByCEP(cep);
-    }
 
     @Override
     public List<PDA> findByCidade(String cidade) {
@@ -40,6 +41,7 @@ public class PDAServiceImplementation implements PDAService {
     public List<PDA> findByEndereco(String endereco) {
         return repository.findByEnderecoLike(endereco);
     }
+    
 
     public PDA findById(String id) {
         PDA get = repository.findById(id).get();

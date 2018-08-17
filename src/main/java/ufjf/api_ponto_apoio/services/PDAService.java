@@ -14,9 +14,12 @@ public interface PDAService {
     public PDA update(String id, PDA p);
     public void delete(PDA p);
     public void deleteById(String id);
-
-    public List<PDA> findByNome(String nome);
     public List<PDA> findByCEP(String cep);
+    
+    
+    public List<PDA> findByNome(String nome);
     public List<PDA> findByCidade(String cidade);
     public List<PDA> findByEndereco(String endereco);
+    
+    
 }
