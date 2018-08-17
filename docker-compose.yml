@@ -1,4 +1,4 @@
-version: "3.6"
+version: "3.0"
 
 services:
   api-pda:
@@ -6,13 +6,10 @@ services:
     container_name: pdacontainer
     build: .
     #environment:
-    #  - MONGO_URI=mongodb://mongocontainer/ufjf
+    #  - MONGO_URI=mongodb://db:27017/ufjf
     ports:
       - "8080:8080"
-    links:
-      - "db:database"
-    #networks:
-    #  - pdanetwork
+
     depends_on:
       - db
   
@@ -21,12 +18,5 @@ services:
     container_name: mongocontainer
     ports: 
       - "27017:27017"
-    #networks:
-    #  pdanetwork:
-    #    aliases: 
-    #      - "mongocontainer"
 
-#networks: 
-#  pdanetwork:
-#    driver: bridge
     
