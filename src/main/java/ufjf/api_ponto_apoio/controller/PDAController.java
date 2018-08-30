@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,19 +20,35 @@ import ufjf.api_ponto_apoio.classes.PDA;
 // Mapeia a API REST
 @RestController
 @RequestMapping("/pontos_de_apoio")
+//@CrossOrigin(origins={"localhost:4200"})
 public class PDAController {
 
     @Autowired
-    private PDAService repoService;
+    private PDAService pdaService;
+
+    @RequestMapping(value = "/q/{field}={param}", method = RequestMethod.GET)
+    public ResponseEntity<List<PDA>> queryBy(@PathVariable("field") String field, @PathVariable("param") String param) {
+        switch(field) {
+            case "rua": return ResponseEntity.ok(pdaService.findByRua(param));
+            case "bairro": return ResponseEntity.ok(pdaService.findByBairro(param));
+            case "cidade": return ResponseEntity.ok(pdaService.findByCidade(param));
+            case "cep": return ResponseEntity.ok(pdaService.findByCEP(param));
+            default: return ResponseEntity.notFound().build();
+        }
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<PDA> getPDAs() {
-        return repoService.getAll();
+    public ResponseEntity<List<PDA>> getPDAs() {
+        List<PDA> re = pdaService.getAll();
+        if(re == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(re);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<PDA> getById(@PathVariable String id) {
-        PDA p = repoService.findById(id);
+        PDA p = pdaService.findById(id);
         if(p == null) {
             return ResponseEntity.notFound().build();
         }
@@ -40,21 +57,23 @@ public class PDAController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<PDA> addPDA(@Valid @RequestBody PDA pda) {
-        PDA novo = repoService.insert(pda);
+        PDA novo = pdaService.insert(pda);
         return ResponseEntity.ok(novo);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<PDA> updatePDA(@PathVariable String id, @Valid @RequestBody PDA pda) {
-        PDA atualizado = repoService.update(id,pda);
+        PDA atualizado = pdaService.update(id,pda);
         if(atualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(atualizado);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteById(@PathVariable String id) {
-        repoService.deleteById(id);
+        pdaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    
 
 }

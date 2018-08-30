@@ -27,19 +27,19 @@ public class PDAServiceImplementation implements PDAService {
     }
 
     @Override
-    public List<PDA> findByNome(String nome) {
-        return repository.findByNomeLike(nome);
+    public List<PDA> findByRua(String rua) {
+        return repository.findByRuaLikeIgnoreCase(rua);
     }
 
 
     @Override
     public List<PDA> findByCidade(String cidade) {
-        return repository.findByCidadeLike(cidade);
+        return repository.findByCidadeLikeIgnoreCase(cidade);
     }
 
     @Override
-    public List<PDA> findByEndereco(String endereco) {
-        return repository.findByEnderecoLike(endereco);
+    public List<PDA> findByBairro(String bairro) {
+        return repository.findByBairroLikeIgnoreCase(bairro);
     }
     
 
@@ -52,16 +52,14 @@ public class PDAServiceImplementation implements PDAService {
     public PDA insert(PDA p) {
         PDA novo = new PDA();
         BeanUtils.copyProperties(p, novo, "id");
-        repository.save(novo);
-        return novo;
+        return repository.save(novo);
     }
 
     public PDA update(String id,PDA p) {
         try {
             PDA existente = repository.findById(id).get();
             BeanUtils.copyProperties(p, existente, "id");
-            repository.save(existente);
-            return existente;
+            return repository.save(existente);
         } catch(NoSuchElementException e) {
             return null;
         }
