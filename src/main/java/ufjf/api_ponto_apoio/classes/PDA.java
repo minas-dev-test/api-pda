@@ -20,9 +20,10 @@ public class PDA {
     private String cidade;
     private String estado;
     private String pnt_referencia;
+    private String hora_Abertura;
+    private String hora_Fechamento;
     private double latitude;
     private double longitude;
-    private String mapEmbedURL;
 
     public PDA() {
         this.id = gerarUID();
@@ -52,19 +53,26 @@ public class PDA {
         "estado: " + estado + System.lineSeparator() +
         "cep: " + cep + System.lineSeparator() +
         "pnt_referencia: " + pnt_referencia + System.lineSeparator() +
+        "hora_Abertura: " + hora_Abertura + System.lineSeparator() +
+        "hora_Fechamento: " + hora_Fechamento + System.lineSeparator() +
         "latitude: " + latitude + System.lineSeparator() +
         "longitude: " + longitude + System.lineSeparator() +
-        "map url: " + mapEmbedURL + System.lineSeparator() +
         "}";
     }
     
 
-    public void setMapEmbedURL(String url) {
-        mapEmbedURL = url;
+    /**
+     * @return the hora_Abertura
+     */
+    public String getHora_Abertura() {
+        return hora_Abertura;
     }
 
-    public String getMapEmbedURL() {
-        return mapEmbedURL;
+    /**
+     * @return the hora_Fechamento
+     */
+    public String getHora_Fechamento() {
+        return hora_Fechamento;
     }
 
     /**
@@ -124,6 +132,20 @@ public class PDA {
         return pnt_referencia;
     }
 
+
+    /**
+     * @param hora_Abertura the hora_Abertura to set
+     */
+    public void setHora_Abertura(String hora_Abertura) {
+        this.hora_Abertura = hora_Abertura;
+    }
+
+    /**
+     * @param hora_Fechamento the hora_Fechamento to set
+     */
+    public void setHora_Fechamento(String hora_Fechamento) {
+        this.hora_Fechamento = hora_Fechamento;
+    }
     
     /**
      * @param latitude the latitude to set

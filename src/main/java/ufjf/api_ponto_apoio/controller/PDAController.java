@@ -20,7 +20,7 @@ import ufjf.api_ponto_apoio.classes.PDA;
 // Mapeia a API REST
 @RestController
 @RequestMapping("/pontos_de_apoio")
-//@CrossOrigin(origins={"localhost:4200"})
+//@CrossOrigin(origins={"localhost:4200"}) !! ATIVAR QUANDO TIVER UM HOST
 public class PDAController {
 
     @Autowired
