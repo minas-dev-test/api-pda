@@ -1,7 +1,6 @@
 FROM maven:3.6.0-jdk-8-alpine
 
-ARG JAVA_OPTS
-ENV JAVA_OPTS=$JAVA_OPTS
+ENV JAVA_OPTS=""
 
 COPY . /usr/src/mymaven
 WORKDIR /usr/src/mymaven

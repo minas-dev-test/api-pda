@@ -8,7 +8,7 @@ services:
     container_name: pdacontainer
     build: .
     environment:
-      - MONGO_URI=mongodb://db:27017/ufjf
+      SPRING_DATA_MONGODB_URI: mongodb://db:27017/ufjf
     ports:
       - "3001:8080"
     depends_on:
