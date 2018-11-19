@@ -10,15 +10,14 @@ public class PDA {
 
     @Id
     private String id;
-
     private String nome;
-    private String cep;
     private String rua;
     private int numero;
     private String complemento;
     private String bairro;
     private String cidade;
     private String estado;
+    private String cep;
     private String pnt_referencia;
     private String hora_Abertura;
     private String hora_Fechamento;
