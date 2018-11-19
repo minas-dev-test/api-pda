@@ -3,12 +3,6 @@
 Projeto criado utilizando Spring-boot, Maven, MongoDB e Docker
 
 ## Instalação
-
-Para compilar, é necessário ter instalado o Maven: <https://maven.apache.org/download.cgi.>
-
-Para compilar o código execute:
-
-    mvn clean install
   
 Para executar a aplicação com o banco, execute o compose:
 
