@@ -26,3 +26,7 @@
 
 ### VSCode ###
 /.vscode/
+
+#ETC
+.mvn
+.settings
